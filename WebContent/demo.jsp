@@ -6,23 +6,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>FruitShop</title>
 </head>
 <body>
 	<jsp:useBean id="demoBean" class="eu.ubis.eshop.pf.DemoBean"></jsp:useBean>
 	<table >
 	<tr>
-	<th style="border:1px solid black">Subcategorie</th>
-	<th style="border:1px solid black">Categorie</th>
-	<th style="border:1px solid black">Denumire Produs</th>
+
+	<th style="border:2px solid red">Categorie</th>
+	<th style="border:2px solid red">Subcategorie</th>
+	<th style="border:2px solid red">Denumire Produs</th>
+	<th style="border:2px solid red">Descriere Produs</th>
+	<th style="border:2px solid red">UM</th>
+	<th style="border:2px solid red">Pret</th>
 	</tr>
 		<%
 			for (ProductDTO prod : demoBean.getAllProducts()) {
 		%>
 		<tr>
-			<td style="border:1px solid black"><%=prod.getSubcategory() %></td>
-			<td style="border:1px solid black"><%=prod.getCategory() %></td>
-			<td style="border:1px solid black"><%=prod.getName() %></td>
+	
+		    <td style="border:1px solid green"><%=prod.getCategory() %></td> 
+		     <td style="border:1px solid green"><%=prod.getSubcategory() %></td> 
+			<td style="border:1px solid green"><%=prod.getName() %></td>
+			<td style="border:1px solid green"><%=prod.getDescription() %></td>
+			<td style="border:1px solid green"><%=prod.getUm() %></td>
+			<td style="border:1px solid green"><%=prod.getPrice() %></td>
 		</tr>
 		<%
 			}
