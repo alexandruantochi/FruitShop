@@ -12,6 +12,7 @@ import eu.ubis.eshop.bfcl.ProductFacade;
 
 public class DemoBean   {
 
+	// productFacade = new ProductFacadeBean;
 	private static ProductFacade productFacade = FacadeFactory.getProductFacade();
 
 	private static OrdersFacade ordersFacade = FacadeFactory.getOrderFacade();

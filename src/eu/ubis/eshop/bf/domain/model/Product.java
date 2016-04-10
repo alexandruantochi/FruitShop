@@ -6,9 +6,27 @@ public class Product {
 	private String subcategory;
 	private float price;
 	private String name;
+	private String description;
+	private String um;
 
 	public int getProductId() {
 		return productId;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getUm() {
+		return um;
+	}
+
+	public void setUm(String um) {
+		this.um = um;
 	}
 
 	public void setProductId(int productId) {

@@ -13,6 +13,8 @@ public class Transformer {
 		model.setPrice(dto.getPrice());
 		model.setCategory(dto.getCategory());
 		model.setSubcategory(dto.getSubcategory());
+		model.setDescription(dto.getDescription());
+		model.setUm(dto.getUm());
 		return model;
 	}
 
@@ -22,6 +24,8 @@ public class Transformer {
 		dto.setPrice(model.getPrice());
 		dto.setCategory(model.getCategory());
 		dto.setSubcategory(model.getSubcategory());
+		dto.setDescription(model.getDescription());
+		dto.setUm(model.getUm());
 		return dto;
 	}
 }

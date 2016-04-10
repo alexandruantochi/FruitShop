@@ -12,6 +12,8 @@ public final class Mapper {
 		model.setProductId(entity.getProductId());
 		model.setName(entity.getName());
 		model.setPrice(entity.getPrice());
+		model.setDescription(entity.getDescription());
+		model.setUm(entity.getUm());
 		return model;
 	}
 
@@ -20,6 +22,8 @@ public final class Mapper {
 		entity.setProductId(model.getProductId());
 		entity.setName(model.getName());
 		entity.setPrice(model.getPrice());
+		entity.setDescription(model.getDescription());
+		entity.setUm(model.getUm());
 		return entity;
 	}
 
