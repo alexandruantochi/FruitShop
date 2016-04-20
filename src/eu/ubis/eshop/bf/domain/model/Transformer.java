@@ -9,6 +9,7 @@ public class Transformer {
 
 	public static Product dtoToModel(ProductDTO dto) {
 		Product model = new Product();
+		model.setProductId(dto.getProductId());
 		model.setName(dto.getName());
 		model.setPrice(dto.getPrice());
 		model.setCategory(dto.getCategory());
@@ -20,6 +21,7 @@ public class Transformer {
 
 	public static ProductDTO modelToDto(Product model) {
 		ProductDTO dto = new ProductDTO();
+		dto.setProductId(model.getProductId());
 		dto.setName(model.getName());
 		dto.setPrice(model.getPrice());
 		dto.setCategory(model.getCategory());

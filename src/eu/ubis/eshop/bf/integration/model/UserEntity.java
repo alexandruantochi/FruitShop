@@ -1,7 +1,7 @@
 package eu.ubis.eshop.bf.integration.model;
 
 public class UserEntity {
-	
+	private int id;
 	private String name;
 	private String first_name;
 	private String adress;

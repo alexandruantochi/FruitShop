@@ -1,13 +1,23 @@
 package eu.ubis.eshop.bfcl;
 
-public class ProductDTO {
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
+public class ProductDTO {
+	private int productId;
 	private String category;
 	private String subcategory;
 	private float price;
 	private String name;
 	private String description;
 	private String um;
+	
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
 
 	public String getDescription() {
 		return description;

@@ -40,7 +40,7 @@ public class UserDAOBeen {
 
 	public List<Integer> getUserOrders(int id) {
 		Connection con = ConnectionHelperClass.getMysqlConnection();
-		List<Integer> orderList = new ArrayList<Integer>()
+		List<Integer> orderList = new ArrayList<Integer>();
 		try {
 			PreparedStatement prepareStatement = con.prepareStatement(GET_USER_ORDERS);
 			prepareStatement.setInt(1, id);

@@ -29,5 +29,40 @@ public class ProductRepositoryBean {
 		}
 		return productList;
 	}
+	
+	public List<String> getAllCategories() {
+		return productDAOBean.getAllCategories();
+	}
 
+	public List<String> getAllSubcategories() {
+		return productDAOBean.getAllSubcategories();
+	}
+	
+	public List<String> getSubcategoriesByCategoryName(String categoryName) {
+		return productDAOBean.getSubcategoriesByCategoryName(categoryName);
+	}
+
+	public void saveProduct(Product product) {
+		ProductEntity entity = Mapper.modelToEnt(product);
+		int categoryId = productDAOBean.getCategoryIdByName(product.getCategory());
+		int subcategoryId = productDAOBean.getSubcategoryIdByName(product.getSubcategory());
+		entity.setCategory(categoryId);
+		entity.setSubcategory(subcategoryId);
+
+		productDAOBean.saveProduct(entity);
+	}
+
+	public void editProduct(Product product) {
+		ProductEntity entity = Mapper.modelToEnt(product);
+		int categoryId = productDAOBean.getCategoryIdByName(product.getCategory());
+		int subcategoryId = productDAOBean.getSubcategoryIdByName(product.getSubcategory());
+		entity.setCategory(categoryId);
+		entity.setSubcategory(subcategoryId);
+		
+		productDAOBean.editProduct(entity);
+	}
+	
+	public void delProduct(String productId){
+		productDAOBean.delProduct(productId);
+	}
 }
