@@ -1,6 +1,7 @@
 package eu.ubis.eshop.pf.admin;
 
 import java.io.IOException;
+import java.io.Console;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -30,8 +31,12 @@ public class ProductsCRUD extends HttpServlet {
 		if (request.getParameter("addProduct") != null) {
 			addProduct(request, response);
 			return;
+		} else if (request.getParameter("editId") != null) {
+			showProductById(request, response);
+            pullCategories(request, response);
+		    return;
 		} else if (request.getParameter("editProduct") != null) {
-		    editProduct(request, response);
+			editProduct(request, response);
 		    return;
 		} else if (request.getParameter("delProduct") != null) {
 		    delProduct(request, response);
@@ -65,6 +70,17 @@ public class ProductsCRUD extends HttpServlet {
 		showProducts(request, response);
 	}
 	
+	private void showProductById(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int id=Integer.parseInt(request.getParameter("editId"));
+		
+		ProductDTO productDTO = productFacade.getProductById(id);
+		session.setAttribute("product", productDTO);
+		
+		response.sendRedirect(request.getContextPath() + "/editProduct.jsp");
+	}
+	
 	private void editProduct (HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String productId = request.getParameter("id");
@@ -76,6 +92,7 @@ public class ProductsCRUD extends HttpServlet {
 		String productPrice = request.getParameter("price");
 
 		ProductDTO product = new ProductDTO();
+		
 		product.setProductId(Integer.parseInt(productId));
 		product.setName(productName);
 		product.setDescription(productDescription);
@@ -106,10 +123,21 @@ public class ProductsCRUD extends HttpServlet {
 		}
 	}
 
+
+	private void pullCategories(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		List<String> categories = productFacade.getAllCategories();
+		List<String> subcategories = productFacade.getAllSubcategories();
+		session.setAttribute("categories", categories);
+		session.setAttribute("subcategories", subcategories);
+	
+	}
 	private void showProducts(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
+	
 		List<ProductDTO> products = productFacade.getAllProducts();
 		List<String> categories = productFacade.getAllCategories();
 		List<String> subcategories = productFacade.getAllSubcategories();

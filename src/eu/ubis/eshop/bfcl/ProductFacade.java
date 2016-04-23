@@ -6,6 +6,8 @@ public interface ProductFacade {
 
 	public List<ProductDTO> getAllProducts();
 
+	public ProductDTO getProductById(int id);
+	
 	public List<String> getAllCategories();
 
 	public List<String> getAllSubcategories();

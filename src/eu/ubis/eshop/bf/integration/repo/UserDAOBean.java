@@ -6,36 +6,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
+
 
 import eu.ubis.eshop.bf.integration.model.UserEntity;
 
-public class UserDAOBeen {
-	private static final String GET_USER_DETAILS = "SELECT * FROM `users` WHERE `username`=? AND `password`=?";
+public class UserDAOBean {
+	private static final String GET_USER_DETAILS = "SELECT `username` FROM `users` WHERE `username`=? AND `password`=?";
 	private static final String GET_USER_ORDERS = "SELECT `orderID` FROM `orders` where `userID`=?";
 
 
-	public List<UserEntity> getUserDetails() {
+	public UserEntity getUserDetails() {
 
 		Connection con = ConnectionHelperClass.getMysqlConnection();
-		List<UserEntity> userEntities = new ArrayList<UserEntity>();
+		UserEntity userEntity = new UserEntity();
 
 		try {
 			ResultSet resultSet = con.createStatement().executeQuery(GET_USER_DETAILS);
 			while (resultSet.next()) {
-				UserEntity userEntity = new UserEntity();
 				userEntity.setId(resultSet.getInt("id"));
 				userEntity.setName(resultSet.getString("name"));
 				userEntity.setFirst_name(resultSet.getString("first_name"));
-				userEntity.setAdress(resultSet.getString("adress"));
+				userEntity.setAdress(resultSet.getString("address"));
 				userEntity.setEmail(resultSet.getString("email"));
 				userEntity.setPhone(resultSet.getString("phone"));
-				userEntities.add(userEntity);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		return userEntities;
+		return userEntity;
 	}
 
 	public List<Integer> getUserOrders(int id) {
@@ -48,11 +46,10 @@ public class UserDAOBeen {
 			while (resultSet.next())
 				orderList.add(resultSet.getInt("orderID"));
 			return orderList;
-		
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		return (new ArrayList<Integer>());
+		return orderList;
 	}
 }

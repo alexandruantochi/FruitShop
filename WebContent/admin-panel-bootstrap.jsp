@@ -48,11 +48,6 @@
 				<form action="ProductsCRUDServlet" method="post">
 				
 					<div class="form-group">
-						<label  for="id">Product ID (for deletion or edit)</label>
-						<input type="number" name="id" />
-					</div>
-				
-					<div class="form-group">
 						<label for="name">Product name</label>
 						<input type="text" class="form-control" name="name" />
 					</div>
@@ -92,10 +87,17 @@
 						<input type="text" class="form-control" name="price" />
 					</div>
 					
+					
 					<input class="btn btn-primary" type="submit" name="addProduct" value="Submit">
-					<input class="btn btn-primary" type="submit" name="editProduct" value="Edit">
-					<input class="btn btn-primary" type="submit" name="delProduct" value="Delete">
-					<input class="btn btn-primary" type="submit" name="refresh" value="Refresh">
+					<input class="btn btn-success" type="submit" name="refresh" value="Refresh">
+					
+					<div class="form-group">
+						<label  for="id">Product ID (for deletion)</label>
+						<input type="number" name="id" />
+					</div>
+					
+					<input class="btn btn-danger" type="submit" name="delProduct" value="Delete">
+					
 				</form>
 				
 			</div>
@@ -112,6 +114,7 @@
 							<tr>
 								<th>ID</th>
 								<th>Product</th>
+								<th>Description</th>
 								<th>Category</th>								
 								<th>Sub-category</th>
 								<th>Price</th>
@@ -123,9 +126,18 @@
 								<tr>
 									<td><c:out value="${product.productId}" /></td>
 									<td><c:out value="${product.name}" /></td>
+									<td><c:out value="${product.description}" /></td>
 									<td><c:out value="${product.category}" /></td>									
 									<td><c:out value="${product.subcategory}" /></td>
 									<td><c:out value="${product.price}" /></td>
+
+									<td>
+									<form action="ProductsCRUDServlet" method="post">
+									<input type="hidden" class="form-control" name="editId"  value="${product.productId}" />
+									<input class="btn btn-primary" type="submit" name="editId" value="EDIT">
+									</form>
+									</td>
+								
 								</tr>
 							</c:forEach>
 						</tbody>

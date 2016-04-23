@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.ubis.eshop.bf.domain.model.Product;
 import eu.ubis.eshop.bf.integration.model.ProductEntity;
 
 public class ProductDAOBean {
 
 	private static final String GET_ALL_PRODUCTS = "SELECT * FROM `products` ORDER BY `id`";
+	private static final String GET_PRODUCT_BY_ID = "SELECT * FROM `products` WHERE id=?";
 	private static final String CATEGORY_SELECT = "SELECT `category` FROM `category` WHERE `id`=?";
 	private static final String SUBCATEGORY_SELECT = "SELECT `subcategory` FROM `subcategory` WHERE `id`=?";
 	
@@ -49,6 +51,30 @@ public class ProductDAOBean {
 			e.printStackTrace();
 		} 
 		return productList;
+	}
+	
+	public ProductEntity getProductById(int id) {
+
+		Connection con = ConnectionHelperClass.getMysqlConnection();
+		ProductEntity product = new ProductEntity();
+		
+		try {
+			PreparedStatement prepareStatement = con.prepareStatement(GET_PRODUCT_BY_ID);
+			prepareStatement.setInt(1, id);
+			ResultSet resultSet = prepareStatement.executeQuery();
+			while (resultSet.next()) {
+				product.setProductId(resultSet.getInt("id"));
+				product.setName(resultSet.getString("name"));
+				product.setCategory(resultSet.getInt("categoryId"));
+				product.setSubcategory(resultSet.getInt("subcategoryId"));
+				product.setDescription(resultSet.getString("description"));
+				product.setUm(resultSet.getString("um"));
+				product.setPrice(resultSet.getFloat("price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return product;
 	}
 
 	public String getCategoryById(int id) {
@@ -104,9 +130,12 @@ public class ProductDAOBean {
 		try {
 			PreparedStatement prepareStatement = con.prepareStatement(CATEGORY_SELECT_BY_NAME);
 			prepareStatement.setString(1, name);
+			int category = 0;
 			ResultSet resultSet = prepareStatement.executeQuery();
-			resultSet.next();
-			return resultSet.getInt("id");
+			while(resultSet.next()){
+				category=resultSet.getInt("id");
+			}
+			return category;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,12 +161,15 @@ public class ProductDAOBean {
 
 	public int getSubcategoryIdByName(String name) {
 		Connection con = ConnectionHelperClass.getMysqlConnection();
+		int subcategory = 0;
 		try {
 			PreparedStatement prepareStatement = con.prepareStatement(SUBCATEGORY_SELECT_BY_NAME);
 			prepareStatement.setString(1, name);
 			ResultSet resultSet = prepareStatement.executeQuery();
-			resultSet.next();
-			return resultSet.getInt("id");
+			while (resultSet.next()) {
+				subcategory=resultSet.getInt("id");
+			}
+			return subcategory;
 
 		} catch (SQLException e) {
 			e.printStackTrace();

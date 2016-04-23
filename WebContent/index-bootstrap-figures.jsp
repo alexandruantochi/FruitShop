@@ -29,7 +29,7 @@
             </button>
             <a class="navbar-brand" href="#">FruitShop</a>
         </div>
-        <center>
+       
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Link</a>
@@ -71,7 +71,7 @@
                      <button type="submit" class="btn btn-default">Register</button>
                 </form>
             </div>
-        </center>
+      
     </div>
 </div>
     	

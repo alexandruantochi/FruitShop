@@ -9,7 +9,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>John's shop</title>
+	<title>FruitShop</title>
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/shop-homepage.css" rel="stylesheet">

@@ -25,6 +25,14 @@ public class ProductFacadeBean implements ProductFacade {
 
 		return productList;
 	}
+	
+	@Override
+	public ProductDTO getProductById(int id) {
+		Product product = productRepository.getProductById(id);
+		ProductDTO productDTO = new ProductDTO();
+		productDTO=Transformer.modelToDto(product);
+		return productDTO;
+	}
 
 	@Override
 	public List<String> getAllCategories() {
@@ -58,6 +66,8 @@ public class ProductFacadeBean implements ProductFacade {
 	public void delProduct(String productId){
 		ProductDAOBean.delProduct(productId);
 	}
+
+	
 	
 
 }

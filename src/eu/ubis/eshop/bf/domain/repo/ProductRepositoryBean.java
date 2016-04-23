@@ -30,6 +30,20 @@ public class ProductRepositoryBean {
 		return productList;
 	}
 	
+	public Product getProductById(int id){
+		Product product = new Product();
+		ProductEntity entity = new ProductEntity();
+		entity=productDAOBean.getProductById(id);
+		product = Mapper.entityToModel(entity);
+		
+		String category = productDAOBean.getCategoryById(entity.getCategory());
+		String subCategory = productDAOBean.getSubCategoryById(entity.getSubcategory());
+		product.setCategory(category);
+		product.setSubcategory(subCategory);
+		
+		return product;
+	}
+	
 	public List<String> getAllCategories() {
 		return productDAOBean.getAllCategories();
 	}
