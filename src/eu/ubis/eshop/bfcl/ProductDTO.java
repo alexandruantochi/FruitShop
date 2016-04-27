@@ -1,6 +1,6 @@
 package eu.ubis.eshop.bfcl;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
+//import com.sun.xml.internal.bind.v2.model.core.ID;
 
 public class ProductDTO {
 	private int productId;

@@ -9,19 +9,25 @@ import java.util.List;
 
 
 import eu.ubis.eshop.bf.integration.model.UserEntity;
+import sun.security.util.Password;
 
 public class UserDAOBean {
-	private static final String GET_USER_DETAILS = "SELECT `username` FROM `users` WHERE `username`=? AND `password`=?";
-	private static final String GET_USER_ORDERS = "SELECT `orderID` FROM `orders` where `userID`=?";
+	private static final String GET_USER_DETAILS = "SELECT * FROM `users` WHERE `username`=? AND `password`=?";
+	private static final String GET_USER_ORDERS = "SELECT `orderId` FROM `orders` WHERE `userID`=?";
+	private static final String GET_USER_FAVS = "SELECT `productId` from `favs` WHERE `userID`=?";
 
 
-	public UserEntity getUserDetails() {
+	public UserEntity getUserDetails(String username, String pwd) {
 
 		Connection con = ConnectionHelperClass.getMysqlConnection();
 		UserEntity userEntity = new UserEntity();
 
 		try {
-			ResultSet resultSet = con.createStatement().executeQuery(GET_USER_DETAILS);
+			PreparedStatement prepareStatement = con.prepareStatement(GET_USER_DETAILS);
+			prepareStatement.setString(1, username);
+			prepareStatement.setString(2, pwd);
+			
+			ResultSet resultSet = prepareStatement.executeQuery();
 			while (resultSet.next()) {
 				userEntity.setId(resultSet.getInt("id"));
 				userEntity.setName(resultSet.getString("name"));
@@ -51,5 +57,22 @@ public class UserDAOBean {
 			e.printStackTrace();
 		} 
 		return orderList;
+	}
+	
+	public List<Integer> getUserFavs(int id) {
+		Connection con = ConnectionHelperClass.getMysqlConnection();
+		List<Integer> favList = new ArrayList<Integer>();
+		try {
+			PreparedStatement prepareStatement = con.prepareStatement(GET_USER_FAVS);
+			prepareStatement.setInt(1, id);
+			ResultSet resultSet = prepareStatement.executeQuery();
+			while (resultSet.next())
+				favList.add(resultSet.getInt("productId"));
+			return favList;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return favList;
 	}
 }

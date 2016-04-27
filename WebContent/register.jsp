@@ -1,0 +1,1 @@
+<button type="submit" class="btn btn-default" name="register">Register</button>
