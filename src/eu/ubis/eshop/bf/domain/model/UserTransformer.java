@@ -12,6 +12,8 @@ public class UserTransformer {
 		model.setAdress(dto.getAdress());
 		model.setEmail(dto.getEmail());
 		model.setPhone(dto.getPhone());
+		model.setUsername(dto.getUsername());
+		model.setPassword(dto.getPassword());
 		return model;
 	}
 
@@ -23,6 +25,8 @@ public class UserTransformer {
 		dto.setAdress(model.getAdress());
 		dto.setEmail(model.getEmail());
 		dto.setPhone(model.getPhone());
+		dto.setUsername(model.getUsername());
+		dto.setPassword(model.getPassword());
 		return dto;
 	}
 }

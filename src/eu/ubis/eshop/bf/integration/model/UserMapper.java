@@ -15,6 +15,8 @@ public final class UserMapper {
 		model.setAdress(entity.getAdress());
 		model.setEmail(entity.getEmail());
 		model.setPhone(entity.getPhone());
+		model.setUsername(entity.getUsername());
+		model.setPassword(entity.getPassword());
 		return model;
 	}
 
@@ -26,6 +28,9 @@ public final class UserMapper {
 		entity.setAdress(model.getAdress());
 		entity.setEmail(model.getEmail());
 		entity.setPhone(model.getPhone());
+		entity.setUsername(model.getUsername());
+		entity.setPassword(model.getPassword());
+		
 		return entity;
 	}
 

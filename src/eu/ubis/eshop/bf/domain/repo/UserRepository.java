@@ -4,6 +4,7 @@ package eu.ubis.eshop.bf.domain.repo;
 import java.util.List;
 
 import eu.ubis.eshop.bf.domain.model.User;
+import eu.ubis.eshop.bf.integration.model.Mapper;
 import eu.ubis.eshop.bf.integration.model.UserEntity;
 import eu.ubis.eshop.bf.integration.model.UserMapper;
 import eu.ubis.eshop.bf.integration.repo.UserDAOBean;
@@ -30,5 +31,10 @@ public class UserRepository {
 		public static List<Integer> getUserFavs(int id) {
 			List<Integer> favs = userDAOBean.getUserFavs(id);
 			return null;
+		}
+
+		public void register(User user) {
+			UserEntity userEntity = UserMapper.modelToEnt(user);
+			userDAOBean.register(userEntity);
 		}
 }

@@ -16,12 +16,6 @@
 <body>
 
 
-<% if (UserDTO.getTest()==2) { %>
-<h3>Bine ai venit,  !</h3>
-<% } 
-else {%>
-<h3>Test working</h3>
 
-<%} %>
 </body>
 </html>

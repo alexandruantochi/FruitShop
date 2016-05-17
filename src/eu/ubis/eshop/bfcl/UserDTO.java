@@ -2,6 +2,8 @@ package eu.ubis.eshop.bfcl;
 
 public class UserDTO {
 	private int id;
+	private String username;
+	private String password;
 	private String name;
 	private String first_name;
 	private String adress;
@@ -13,6 +15,12 @@ public class UserDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public int getId() {
 		return id;
@@ -43,5 +51,11 @@ public class UserDTO {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

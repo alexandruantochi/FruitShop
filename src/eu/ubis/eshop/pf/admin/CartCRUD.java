@@ -11,14 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTML;
+import javax.websocket.Session;
 
 import eu.ubis.eshop.bfcl.FacadeFactory;
-import eu.ubis.eshop.bfcl.ProductDTO;
-import eu.ubis.eshop.bfcl.ProductFacade;
+import eu.ubis.eshop.bfcl.CartDTO;
+import eu.ubis.eshop.bfcl.CartFacade;
+import javafx.beans.binding.SetExpression;
 
 @WebServlet("/CartCRUDServlet")
 
 
-public class CartCRUD {
+public class CartCRUD extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+	private static CartFacade cartFacade = FacadeFactory.getCartFacade();
+	
+
 
 }

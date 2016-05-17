@@ -3,6 +3,7 @@ package eu.ubis.eshop.bfcl;
 import eu.ubis.eshop.bf.business.OrderFacadeBean;
 import eu.ubis.eshop.bf.business.ProductFacadeBean;
 import eu.ubis.eshop.bf.business.UserFacadeBean;
+import eu.ubis.eshop.bf.business.CartFacadeBean;
 
 public final class FacadeFactory {
 
@@ -13,6 +14,7 @@ public final class FacadeFactory {
 	private static ProductFacade productFacade;
 	private static OrdersFacade ordersFacade;
 	private static UserFacade userFacade;
+	private static CartFacade cartFacade;
 
 	public static ProductFacade getProductFacade() {
 		if (productFacade == null) {
@@ -32,6 +34,13 @@ public final class FacadeFactory {
 			ordersFacade = new OrderFacadeBean();
 		}
 		return ordersFacade;
+	}
+
+	public static CartFacade getCartFacade() {
+		if (cartFacade == null) {
+			cartFacade = new CartFacadeBean();
+		}
+		return cartFacade;
 	}
 
 }

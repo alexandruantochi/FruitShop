@@ -2,6 +2,7 @@ package eu.ubis.eshop.pf.admin;
 
 import java.io.IOException;
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
 
+import eu.ubis.eshop.bf.integration.repo.UserDAOBean;
 import eu.ubis.eshop.bfcl.FacadeFactory;
+import eu.ubis.eshop.bfcl.ProductDTO;
 import eu.ubis.eshop.bfcl.UserDTO;
 import eu.ubis.eshop.bfcl.UserFacade;
 
@@ -36,8 +39,8 @@ public class UserCRUD extends HttpServlet {
 		} else if (request.getParameter("logout") != null) {
 			logout(request, response);
 			return;
-		} else if (request.getParameter("editProduct") != null) {
-			// editProduct(request, response);
+		} else if (request.getParameter("register") != null) {
+			register(request, response);
 			return;
 		} else if (request.getParameter("delProduct") != null) {
 			// delProduct(request, response);
@@ -69,24 +72,49 @@ public class UserCRUD extends HttpServlet {
 		if (userDTO.getFirst_name() == null){
 			session.setAttribute("logged", "fail");
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
-			return;
 		} else {
 				session.setAttribute("first_name", userDTO.getFirst_name());
 				session.setAttribute("userId", userDTO.getFirst_name());
 				session.setAttribute("logged", "yes");
 				response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
-		
 	}
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		
 		if (session != null) {
 		    session.invalidate();
 		}
 		response.sendRedirect(request.getContextPath() + "/index.jsp");
 	}
+	
+	private void register(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String first_name = request.getParameter("first_name");
+		String adress = request.getParameter("adress");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+
+		UserDTO user = new UserDTO();
+		
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setName(name);
+		user.setFirst_name(first_name);
+		user.setAdress(adress);
+		user.setEmail(email);
+		user.setPhone(phone);
+
+		userFacade.register(user);
+		response.sendRedirect(request.getContextPath() + "/index.jsp");
+	}
+
 
 }

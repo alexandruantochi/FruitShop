@@ -1,3 +1,4 @@
+<%@page import="eu.ubis.eshop.bf.domain.model.Product"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -31,50 +32,65 @@
 				<a class="navbar-brand" href="#">FruitShop</a>
 			</div>
 			<div class="navbar-collapse collapse" id="navbar-main">
-				<% if (session.getAttribute("logged")=="yes")  { %>
+				<%
+					if (session.getAttribute("logged") == "yes") {
+				%>
 				<ul class="nav navbar-nav">
 
-					<li class="active"><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						data-toggle="dropdown">Welcome, <c:out value="${first_name}" /><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
+							<li><a href="#">My Profile Page</a></li>
+							<li><a href="#">My Favorites</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-							<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
+							<li><a href="#">Info</a></li>
+							<li><a href="#">Contact us</a></li>
 						</ul></li>
 				</ul>
-				<form class="navbar-form navbar-right" action="UserCRUDServlet" method="post">
-				<p class="nav navbar-nav" style="font-size:1.5em">Welcome, <c:out value="${first_name}" /> !
-				<button type="submit" class="btn btn-warning" name="logout">Log Out</button>
-				<button type="submit" class="btn btn-success" name="cart">Your cart (<c:out value="${cart_items}"/>)</button>
-				</p>
-				
+				<form class="navbar-form navbar-right" action="UserCRUDServlet"
+					method="post">
+					<p class="nav navbar-nav" style="font-size: 1.5em">
+						<button type="submit" class="btn btn-warning" name="logout">Log
+							Out</button>
+						<a href="/cart.jsp"><button type="submit" class="btn btn-success" name="cart">
+							Your cart (
+							<c:out value="${cart_items}" />
+							)
+						</button></a>
+					</p>
+
 				</form>
-				<% } else if (session.getAttribute("logged")=="fail"){%>
-				<form class="navbar-form navbar-right" action="UserCRUDServlet" method="post">
-				<button type="submit" class="btn btn-warning" name="logout">Invalid username or password, click here to retry</button>
+				<%
+					} else if (session.getAttribute("logged") == "fail") {
+				%>
+				<form class="navbar-form navbar-right" action="UserCRUDServlet"
+					method="post">
+					<button type="submit" class="btn btn-warning" name="logout">Invalid
+						username or password, click here to retry</button>
 				</form>
-				<% }  else { %>
-				<a href="register.jsp" class="navbar-form navbar-right"> <button type="submit" class="btn btn-default">Register</button> </a>
-				<form class="navbar-form navbar-right" action="UserCRUDServlet" method="post">
+				<%
+					} else {
+				%>
+				<a href="register.jsp" class="navbar-form navbar-right">
+					<button type="submit" class="btn btn-default">Register</button>
+				</a>
+				<form class="navbar-form navbar-right" action="UserCRUDServlet"
+					method="post">
 					<div class="form-group">
-						<input type="text" class="form-control" name="username" placeholder="Username">
+						<input type="text" class="form-control" name="username"
+							placeholder="Username">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" name="pwd" placeholder="Password">
+						<input type="password" class="form-control" name="pwd"
+							placeholder="Password">
 					</div>
-					<button type="submit" class="btn btn-success" name="login">Sign In</button>
+					<button type="submit" class="btn btn-success" name="login">Sign
+						In</button>
 				</form>
-				
-				<%} %>
+
+				<%
+					}
+				%>
 			</div>
 		</div>
 	</div>
@@ -88,24 +104,26 @@
 		<!-- Aducem subcategoriile in functie de ID-ul categoriei 
          			 pretty incurcat, pentru ca se alterneaza cod Java cu tag-uri HTML-->
 		<%
-    			 	for (String category : demoBean.getAllCategories()) {
-    			 %>
+			for (String category : demoBean.getAllCategories()) {
+		%>
 		<div class="list-group">
-			<a href="#" class="list-group-item category"><strong> <%=category%>
+			<a href="?category=<%=category %>" class="list-group-item category"><strong> <%=category%>
 			</strong></a>
-
+		
 			<%
-    			 		for (String subcategory : demoBean.getSubcategoriesByCategoryName(category)) {
-    			 	%>
-			<a href="#" class="list-group-item subcategory"> <%=subcategory%>
+				for (String subcategory : demoBean.getSubcategoriesByCategoryName(category)) {
+			%>
+			
+			<a href="?subcategory=<%=subcategory %>" class="list-group-item subcategory"> <%=subcategory%>
 			</a>
+		
 			<%
-    			 		}
-    			 	%>
+				}
+			%>
 		</div>
 		<%
-    			 	}
-    			 %>
+			}
+		%>
 
 		<input type="button" class="btn btn-primary"
 			onClick="location.href='ProductsCRUDServlet?action=getProducts'"
@@ -156,50 +174,73 @@
 		<div class="row">
 
 			<%
-						for (ProductDTO prod : demoBean.getAllProducts()) {
-					%>
+				for (ProductDTO prod : demoBean.getAllProducts()) {
+					if (request.getParameter("category")==null && request.getParameter("subcategory") == null) {
+			%>
 			<!-- clase responsive din Bootstrap -->
 			<div class="col-sm-4 col-lg-4 col-md-4">
 				<div class="thumbnail">
 					<img src="http://www.dietasyperderpeso.com/images/static/16.jpg"
 						alt="">
-					<!-- prod.getImage(), daca aveti -->
 					<div class="caption">
-						<h4 class="pull-right"><%= prod.getPrice() %>
+						<h4 class="pull-right"><%=prod.getPrice()%>
 							RON
 						</h4>
-						<!-- prod.getPrice(), daca aveti implementat -->
-						<h4><%= prod.getName() %></h4>
+						<h4><%=prod.getName()%></h4>
 						<p>
 							<strong>Category:</strong>
-							<%= prod.getCategory() %></p>
+							<%=prod.getCategory()%></p>
 						<p>
 							<strong>Sub-category:</strong>
-							<%= prod.getSubcategory() %></p>
+							<%=prod.getSubcategory()%></p>
 						<p>
-							<i><%= prod.getDescription() %></i>
+							<i><%=prod.getDescription()%></i>
 						</p>
 					</div>
 					<form action="CartCRUDServlet" method="post">
-						<input class="btn btn-success" type="submit" name="addToCart"
-							value="Buy"> <input class="btn btn-success" type="submit"
-							name="fav" value="Fav">
-						<!--/<div class="form-group">
-								<label for="id"></label>--->
-						<input type="hidden" class="form-control" name="id" />
-						<!--	</div>  -->
+						<input class="btn btn-success" type="submit" name="addToCart" value="Buy"> 
+						<input class="btn btn-success" type="submit" name="fav" value="Fav">
+						<input type="hidden" class="form-control" name="productId" value=<%=prod.getProductId()%> />
 					</form>
 				</div>
 			</div>
-			<%	
-						}
-                    %>
-
+			<%
+				} else if ((prod.getCategory().equals(request.getParameter("category")) || (prod.getSubcategory().equals(request.getParameter("subcategory"))))) {
+			%>
+				<!-- clase responsive din Bootstrap -->
+			<div class="col-sm-4 col-lg-4 col-md-4">
+				<div class="thumbnail">
+					<img src="http://www.dietasyperderpeso.com/images/static/16.jpg"
+						alt="">
+					<div class="caption">
+						<h4 class="pull-right"><%=prod.getPrice()%>
+							RON
+						</h4>
+						<h4><%=prod.getName()%></h4>
+						<p>
+							<strong>Category:</strong>
+							<%=prod.getCategory()%></p>
+						<p>
+							<strong>Sub-category:</strong>
+							<%=prod.getSubcategory()%></p>
+						<p>
+							<i><%=prod.getDescription()%></i>
+						</p>
+					</div>
+					<form action="CartCRUDServlet" method="post">
+						<input class="btn btn-success" type="submit" name="addToCart" value="Buy"> 
+						<input class="btn btn-success" type="submit" name="fav" value="Fav">
+						<input type="hidden" class="form-control" name="productId" value=<%=prod.getProductId()%> />
+					</form>
+				</div>
+			</div>
+			
+			<% }} %>
+<h4>CATEGORY=<%= request.getParameter("subcategory") %></h4>
 		</div>
 
 	</div>
-	</div>
-	</div>
+
 
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
