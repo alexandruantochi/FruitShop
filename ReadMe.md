@@ -2,7 +2,7 @@ FruitShop
 ___
 
 
-###This is a project that I've done during the FII Practic event at the Faculty of Computer Science in Iasi with the help of the ###trainers from UniCredit Bussiness Integrated Solutions.
+###This is a project that I've done during the FII Practic event at the Faculty of Computer Science in Iasi with the help of the trainers from UniCredit Bussiness Integrated Solutions.
 
 The project is partially not complete, as it lacks the "cart" and "checkout" functions. It also needs some refinig here and there, uch as data validation etc.
 
